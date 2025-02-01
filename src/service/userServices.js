@@ -1,8 +1,9 @@
-import User from "../models/userModel.js";
+import Agent from "../models/agentModel.js";
 
-export const checkUser = async (email) => {
+export const checkAgent = async (email) => {
   try {
-    const user = await User.findOne({ email });
+    const user = await Agent.findOne({ email });
+    console.log(user);
     if (!user) {
       return null;
     }

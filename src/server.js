@@ -5,7 +5,7 @@ import { config } from "dotenv";
 config();
 
 import connectDb from "./config/database.js";
-import userRouter from "./routes/userRoutes.js";
+import adminRouter from "./routes/adminRoutes.js";
 
 connectDb();
 const app = express();
@@ -23,7 +23,7 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", userRouter);
+app.use("/admin", adminRouter);
 
 const port = 4000;
 
