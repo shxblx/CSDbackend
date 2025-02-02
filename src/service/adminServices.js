@@ -34,3 +34,36 @@ export const getAgents = async () => {
     throw new Error("Database Error");
   }
 };
+
+export const distributeTasksToAgents = async (items) => {
+  try {
+    const agents = await Agent.find();
+
+    if (agents.length === 0) {
+      throw new Error("No agents available to assign tasks");
+    }
+
+    const tasksPerAgent = Math.floor(items.length / agents.length);
+    const updates = [];
+
+    for (let i = 0; i < agents.length; i++) {
+      const start = i * tasksPerAgent;
+      const end =
+        i === agents.length - 1 ? items.length : start + tasksPerAgent;
+
+      const assignedTasks = items.slice(start, end);
+
+      updates.push(
+        Agent.updateOne(
+          { _id: agents[i]._id },
+          { $push: { items: { $each: assignedTasks } } }
+        )
+      );
+    }
+
+    await Promise.all(updates);
+  } catch (error) {
+    console.error("Error distributing tasks:", error);
+    throw new Error("Error distributing tasks");
+  }
+};

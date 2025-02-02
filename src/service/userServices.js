@@ -3,7 +3,6 @@ import Agent from "../models/agentModel.js";
 export const checkAgent = async (email) => {
   try {
     const user = await Agent.findOne({ email });
-    console.log(user);
     if (!user) {
       return null;
     }

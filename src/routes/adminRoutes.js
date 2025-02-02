@@ -1,5 +1,10 @@
 import { Router } from "express";
-import { addAgent, adminLogin, fetchAgents } from "../controllers/adminControllers.js";
+import {
+  addAgent,
+  adminLogin,
+  fetchAgents,
+  uploadCSV,
+} from "../controllers/adminControllers.js";
 import { adminAuthMiddleware } from "../middlewares/adminAuth.js";
 
 const adminRouter = Router();
@@ -7,5 +12,6 @@ const adminRouter = Router();
 adminRouter.post("/adminlogin", adminLogin);
 adminRouter.post("/addagent", adminAuthMiddleware, addAgent);
 adminRouter.get("/fetchAgents", adminAuthMiddleware, fetchAgents);
+adminRouter.post("/uploadCsv", adminAuthMiddleware, uploadCSV);
 
 export default adminRouter;
