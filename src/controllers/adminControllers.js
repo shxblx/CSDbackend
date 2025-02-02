@@ -8,7 +8,7 @@ import {
   distributeTasksToAgents,
   removeAgent,
 } from "../service/adminServices.js";
-import { checkAgent } from "../service/userServices.js";
+import { checkAgent } from "../service/agentServices.js";
 import upload from "../utils/multer.js";
 import csvParser from "csv-parser";
 import * as XLSX from "xlsx";
