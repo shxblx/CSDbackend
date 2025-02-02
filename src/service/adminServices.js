@@ -67,3 +67,18 @@ export const distributeTasksToAgents = async (items) => {
     throw new Error("Error distributing tasks");
   }
 };
+
+export const removeAgent = async (agentId) => {
+  try {
+    const deletedAgent = await Agent.findByIdAndDelete(agentId);
+
+    if (!deletedAgent) {
+      return { success: false, message: "Agent not found" };
+    }
+
+    return { success: true, message: "Agent deleted successfully" };
+  } catch (error) {
+    console.error("Error deleting agent:", error);
+    return { success: false, message: "Server error" };
+  }
+};
