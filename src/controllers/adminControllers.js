@@ -51,6 +51,7 @@ export const adminLogin = async (req, res) => {
 
 export const addAgent = async (req, res) => {
   try {
+    console.log(req.user);
     const agent = req.body;
     const exist = await checkAgent(req.body.email);
     if (exist) {
@@ -109,6 +110,21 @@ export const deleteAgent = async (req, res) => {
   } catch (error) {
     console.error("Error in deleteAgent:", error);
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const adminLogout = async (req, res) => {
+  try {
+    res.clearCookie("csAdmin", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "strict",
+    });
+
+    return res.status(200).json({ message: "Logout successful" });
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ message: "Server Error" });
   }
 };
 
