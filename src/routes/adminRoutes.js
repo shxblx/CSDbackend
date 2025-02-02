@@ -16,6 +16,6 @@ adminRouter.post("/addagent", adminAuthMiddleware, addAgent);
 adminRouter.get("/fetchAgents", adminAuthMiddleware, fetchAgents);
 adminRouter.post("/uploadCsv", adminAuthMiddleware, uploadCSV);
 adminRouter.delete("/deleteagent", adminAuthMiddleware, deleteAgent);
-adminRouter.post("/adminlogout",adminAuthMiddleware,adminLogout);
+adminRouter.post("/adminlogout", adminAuthMiddleware, adminLogout);
 
 export default adminRouter;

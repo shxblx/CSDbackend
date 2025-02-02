@@ -6,6 +6,7 @@ config();
 
 import connectDb from "./config/database.js";
 import adminRouter from "./routes/adminRoutes.js";
+import agentRouter from "./routes/agentRoutes.js";
 
 connectDb();
 const app = express();
@@ -24,6 +25,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/admin", adminRouter);
+app.use("/agent", agentRouter);
 
 const port = 4000;
 
