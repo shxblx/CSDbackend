@@ -11,3 +11,18 @@ export const checkAgent = async (email) => {
     return null;
   }
 };
+
+export const fetchTasks = async (agentId) => {
+  try {
+    const agent = await Agent.findById(agentId).select("items");
+
+    if (!agent) {
+      return null;
+    }
+
+    return agent.items;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};

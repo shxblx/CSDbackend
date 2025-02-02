@@ -1,10 +1,10 @@
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
-import { checkAgent } from "../service/agentServices.js";
+import { checkAgent, fetchTasks } from "../service/agentServices.js";
+import mongoose from "mongoose";
 
 export const agentLogin = async (req, res) => {
   try {
-    console.log("here");
     const { email, password } = req.body;
     const agent = await checkAgent(email);
     if (!agent) {
@@ -26,11 +26,27 @@ export const agentLogin = async (req, res) => {
     });
 
     return res.status(200).json({
+      agent: agent.name,
       agentId: agent._id,
       message: "Login successful",
     });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ message: "Server Error" });
+  }
+};
+
+export const getTasks = async (req, res) => {
+  try {
+    const tasks = await fetchTasks(req.agent._id);
+
+    if (!tasks) {
+      return res.status(404).json({ message: "Tasks not found" });
+    }
+
+    res.status(200).json({ tasks });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 };
