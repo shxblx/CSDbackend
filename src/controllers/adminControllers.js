@@ -51,7 +51,6 @@ export const adminLogin = async (req, res) => {
 
 export const addAgent = async (req, res) => {
   try {
-    console.log(req.user);
     const agent = req.body;
     const exist = await checkAgent(req.body.email);
     if (exist) {
