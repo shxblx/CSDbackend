@@ -11,6 +11,17 @@ export const checkAgent = async (email) => {
     return null;
   }
 };
+export const checkNumberExist = async (mobile) => {
+  try {
+    const mobileNum = await Agent.findOne({ mobile });
+    if (!mobileNum) {
+      return null;
+    }
+    return mobileNum;
+  } catch (error) {
+    return null;
+  }
+};
 
 export const fetchTasks = async (agentId) => {
   try {

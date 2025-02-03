@@ -8,7 +8,7 @@ import {
   distributeTasksToAgents,
   removeAgent,
 } from "../service/adminServices.js";
-import { checkAgent } from "../service/agentServices.js";
+import { checkAgent, checkNumberExist } from "../service/agentServices.js";
 import upload from "../utils/multer.js";
 import csvParser from "csv-parser";
 import * as XLSX from "xlsx";
@@ -53,10 +53,14 @@ export const addAgent = async (req, res) => {
   try {
     const agent = req.body;
     const exist = await checkAgent(req.body.email);
+    console.log(req.body.mobile);
+    const numberExist = await checkNumberExist(req.body.mobile);
     if (exist) {
       return res.status(400).json({ message: "Agent already exists" });
     }
-
+    if (numberExist) {
+      return res.status(400).json({ message: "Number Already Exists" });
+    }
     const newAgent = await createAgent(agent);
 
     if (!newAgent) {

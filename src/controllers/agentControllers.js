@@ -1,7 +1,6 @@
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
 import { checkAgent, fetchTasks } from "../service/agentServices.js";
-import mongoose from "mongoose";
 
 export const agentLogin = async (req, res) => {
   try {
